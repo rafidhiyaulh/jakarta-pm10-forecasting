@@ -1,87 +1,65 @@
-# Analisis dan Evaluasi Prediksi Harian PM₁₀ Jakarta Menggunakan Model Hibrida Random Forest Regresi-ARIMA Berbasis Rekayasa Fitur
+# Daily PM10 Forecasting in Jakarta with a Hybrid Random Forest and ARIMA Model
 
-**Muhammad Rafi Dhiyaulhaq**  
-Program Studi Sistem dan Teknologi Informasi, Sekolah Teknik Elektro dan Informatika  
-Institut Teknologi Bandung
+**Muhammad Rafi Dhiyaulhaq**, Information Systems and Technology, School of Electrical Engineering and Informatics, Institut Teknologi Bandung
 
----
+Undergraduate thesis (Grade A), supervised by Dr. Fetty Fitriyanti Lubis, S.T., M.T. Published and presented at IEEE FMLDS 2026.
 
-## Overview
-
-Undergraduate thesis (*Tugas Akhir*) that analyzes and evaluates a sequential hybrid Random Forest–ARIMA architecture with time-series feature engineering for next-day (t+1) PM₁₀ forecasting in DKI Jakarta (2010–2025). The model is complemented with TreeSHAP explainability to identify the main drivers of the forecasts.
-
-This thesis was conducted as part of a lecturer research project under the supervision of **Dr. Fetty Fitriyanti Lubis, S.T., M.T.**
-
-**Grade: A**
-
----
+![Presenting at IEEE FMLDS 2026](presentation/presenting.jpg)
 
 ## Publication
 
-*Analysis and Evaluation of Daily PM₁₀ Forecasting in Jakarta Using a Hybrid Random Forest Regressive and ARIMA Model Based on Feature Engineering.*  
-M. R. Dhiyaulhaq, F. F. Lubis, and J. Sembiring.  
-Accepted to the **2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026)**, Kobe, Japan, 20–23 November 2026.
+M. R. Dhiyaulhaq, F. F. Lubis, and J. Sembiring, "Analysis and Evaluation of Daily PM10 Forecasting in Jakarta Using a Hybrid Random Forest Regressive and ARIMA Model Based on Feature Engineering," *2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026)*.
 
----
+Presented in Session W3B on 23 November 2026. [Paper](Muhammad%20Rafi%20Dhiyaulhaq_Paper.pdf) and [slides](presentation/FMLDS2026-169-W3B.pptx).
 
-## Results (IEEE FMLDS 2026 paper)
+## Summary
 
-Next-day forecasting on a chronological hold-out test set of 1,043 days (Oct 2021 – Feb 2025). Values are PM₁₀ ISPU sub-indices.
+Jakarta's air quality index (ISPU) only reports the past 24 hours. This work forecasts next-day PM10 from data available today.
+
+- **Data:** 5,538 daily ISPU records for DKI Jakarta (2010 to 2025), split by time into 4,172 training and 1,043 test days.
+- **Features:** 18 inputs known by day t-1: PM10 lags, rolling statistics, lagged gases, a CO x O3 photochemistry proxy and calendar flags.
+- **Model:** an Optuna-tuned Random Forest learns the nonlinear part; ARMA(5,4) on its out-of-bag residuals adds a one-step correction.
+- **Explainability:** TreeSHAP on the Random Forest stage.
+
+## Results
+
+1,043 test days (Oct 2021 to Feb 2025). Errors are in ISPU points.
 
 | Model | RMSE | MAE | R² |
 |---|---|---|---|
-| **Hybrid RF–ARIMA (proposed)** | **14.73** | **10.34** | **0.37** |
-| Random Forest (Optuna-tuned) | 14.82 | 10.55 | 0.36 |
-| ARIMA(5,1,0), rolling one-step | 15.23 | 10.70 | 0.32 |
-| XGBoost (untuned) | 16.52 | 12.09 | 0.20 |
-| Persistence (yₜ = yₜ₋₁) | 17.75 | 11.96 | 0.08 |
+| **Hybrid RF-ARIMA** | **14.73** | **10.34** | **0.37** |
+| Random Forest, Optuna-tuned | 14.82 | 10.55 | 0.36 |
+| ARIMA(5,1,0), rolling | 15.23 | 10.70 | 0.32 |
+| XGBoost, untuned | 16.52 | 12.09 | 0.20 |
+| Persistence | 17.75 | 11.96 | 0.08 |
 
-**Key findings**
-- The hybrid reduces RMSE by 17.0% vs. persistence and 3.3% vs. a rolling ARIMA. Both differences are significant under the Diebold–Mariano test.
-- The ARIMA residual stage improves on the tuned Random Forest by only 0.63% RMSE, which is not significant (p = 0.17). Most of the skill comes from PM₁₀ lag and rolling features.
-- TreeSHAP shows that recent PM₁₀ levels (3-day and 7-day means, 1-day lag) and the dry season dominate the forecasts.
+- 17.0% lower RMSE than persistence and 3.3% lower than rolling ARIMA (Diebold-Mariano, significant).
+- The ARIMA stage adds only 0.63% over the tuned Random Forest (p = 0.168). PM10 lags and rolling features carry most of the skill.
+- Top TreeSHAP drivers: 3-day and 7-day PM10 means, yesterday's PM10, and the dry season.
 
-**Setup:** 5,538 daily ISPU records (Jan 2010 – Feb 2025) with 18 features, all built from information available up to day t−1. Missing values are imputed from past data only. Random Forest hyperparameters are tuned with Optuna (TPE) using 5-fold `TimeSeriesSplit` on the training period only. ARIMA is fitted to out-of-bag residuals and applied as a rolling one-step correction.
+The paper uses a revised, leakage-free pipeline. Its results replace the evaluation figures in the thesis report.
 
-> **Note:** The paper uses a revised, leakage-free evaluation pipeline. Its results supersede the evaluation figures in the thesis report.
-
----
-
-## Repository Structure
+## Repository
 
 ```
-.
-├── notebook/
-│   └── PM10_Forecasting.ipynb      # Pipeline that reproduces all paper results
-├── latex/                                    # Thesis LaTeX source
-├── Muhammad Rafi Dhiyaulhaq.pdf              # Final signed thesis report
-└── Muhammad Rafi Dhiyaulhaq_Paper.pdf        # IEEE FMLDS 2026 paper
+notebook/PM10_Forecasting.ipynb      Pipeline that reproduces the paper results
+presentation/                        FMLDS 2026 slides and presentation photo
+latex/                               Thesis LaTeX source
+Muhammad Rafi Dhiyaulhaq.pdf         Thesis report
+Muhammad Rafi Dhiyaulhaq_Paper.pdf   IEEE FMLDS 2026 paper
 ```
 
-## Reproducing the Results
+## Reproduce
 
-Dataset: daily ISPU records for DKI Jakarta 2010–2025 (Kaggle, *Air Quality Index in Jakarta*).
+Dataset: *Air Quality Index in Jakarta* (Kaggle), daily ISPU records 2010 to 2025.
 
 ```bash
 pip install pandas numpy scikit-learn statsmodels xgboost optuna shap matplotlib seaborn
-
 jupyter notebook notebook/PM10_Forecasting.ipynb
 ```
 
----
-
-## Compiling the Thesis
-
-Requires XeLaTeX and Biber.
+Thesis build (XeLaTeX and Biber):
 
 ```bash
-cd latex
-xelatex TA.tex
-biber TA
-xelatex TA.tex
-xelatex TA.tex
+cd latex && xelatex TA.tex && biber TA && xelatex TA.tex && xelatex TA.tex
 ```
-
----
-
-<p
