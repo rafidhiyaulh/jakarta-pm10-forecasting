@@ -2,7 +2,7 @@
 
 **Muhammad Rafi Dhiyaulhaq**, Information Systems and Technology, School of Electrical Engineering and Informatics, Institut Teknologi Bandung
 
-Undergraduate thesis (Grade A), supervised by Dr. Fetty Fitriyanti Lubis, S.T., M.T. Published and presented at IEEE FMLDS 2026.
+Lecturer research project at ITB, supervised by Dr. Fetty Fitriyanti Lubis, S.T., M.T. Presented at IEEE FMLDS 2026 and also submitted as my undergraduate thesis (Grade A).
 
 ![Presenting at IEEE FMLDS 2026](presentation/presenting.jpg)
 
