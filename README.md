@@ -12,6 +12,10 @@ M. R. Dhiyaulhaq, F. F. Lubis, and J. Sembiring, "Analysis and Evaluation of Dai
 
 Presented in Session W3B on 23 November 2026. [Paper](Muhammad%20Rafi%20Dhiyaulhaq_Paper.pdf), [slides](presentation/FMLDS2026-169-W3B.pptx) and [certificate of presentation](presentation/certificate.jpg).
 
+<p align="center">
+  <img src="presentation/certificate.jpg" alt="IEEE FMLDS 2026 certificate of presentation" width="640">
+</p>
+
 ## Summary
 
 Jakarta's air quality index (ISPU) only reports the past 24 hours. This work forecasts next-day PM10 from data available today.
