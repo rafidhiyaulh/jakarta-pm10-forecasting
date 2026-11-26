@@ -10,7 +10,7 @@ Lecturer research project at ITB, supervised by Dr. Fetty Fitriyanti Lubis, S.T.
 
 M. R. Dhiyaulhaq, F. F. Lubis, and J. Sembiring, "Analysis and Evaluation of Daily PM10 Forecasting in Jakarta Using a Hybrid Random Forest Regressive and ARIMA Model Based on Feature Engineering," *2026 IEEE International Conference on Future Machine Learning and Data Science (FMLDS 2026)*.
 
-Presented in Session W3B on 23 November 2026. [Paper](Muhammad%20Rafi%20Dhiyaulhaq_Paper.pdf) and [slides](presentation/FMLDS2026-169-W3B.pptx).
+Presented in Session W3B on 23 November 2026. [Paper](Muhammad%20Rafi%20Dhiyaulhaq_Paper.pdf), [slides](presentation/FMLDS2026-169-W3B.pptx) and [certificate of presentation](presentation/certificate.jpg).
 
 ## Summary
 
@@ -43,7 +43,7 @@ The paper uses a revised, leakage-free pipeline. Its results replace the evaluat
 
 ```
 notebook/PM10_Forecasting.ipynb      Pipeline that reproduces the paper results
-presentation/                        FMLDS 2026 slides and presentation photo
+presentation/                        FMLDS 2026 slides, certificate and presentation photo
 latex/                               Thesis LaTeX source
 Muhammad Rafi Dhiyaulhaq.pdf         Thesis report
 Muhammad Rafi Dhiyaulhaq_Paper.pdf   IEEE FMLDS 2026 paper
